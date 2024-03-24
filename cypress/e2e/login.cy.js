@@ -8,7 +8,7 @@ describe('Verification of the login page', () => {
     })
 
     it('Verification of the page title', () => {
-        cy.get(LoginPage.pageTitle).should('have.text', 'Login')
+        cy.get(LoginPage.pageTitle).should('have.text', loginData.pageTitle)
     })
 
     it('Verification Username and Password fields', () => {
@@ -31,7 +31,7 @@ describe('Verification of the login page', () => {
     })
 
     it('Verification of a reset password action', () => {
-        cy.get('.orangehrm-login-forgot-header').click()
+        cy.get(LoginPage.resetPasswordButton).click()
         cy.url().should('eq', Cypress.config().baseUrl + loginData.resetPasswordUrl)
     })
 })
