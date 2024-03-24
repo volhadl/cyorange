@@ -5,5 +5,6 @@ class LoginPage {
     usernameInputField = 'input[name="username"]'
     passwordInputField = 'input[name="password"]'
     submit = 'button[type="submit"]'
+    resetPasswordButton = '.orangehrm-login-forgot-header'
 }
 export default new LoginPage()
