@@ -19,8 +19,13 @@ describe('Verification of the login page', () => {
     })
 
     it('Verification of a login action', () => {
-        cy.get(LoginPage.usernameInputField).type('Admin')
-        cy.get(LoginPage.passwordInputField).type('admin123')
+        let username = []
+        cy.get('.orangehrm-demo-credentials > .oxd-text').each(($el) => {
+                username.push($el.text().split(': ')[1])
+            }).then(() => {
+                cy.get(LoginPage.usernameInputField).type(username[0])
+                cy.get(LoginPage.passwordInputField).type(username[1])
+            })
         cy.get(LoginPage.submit).click()
         cy.url().should('eq', Cypress.config().baseUrl + loginData.loggedInUsreUrl)
     })
