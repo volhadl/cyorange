@@ -1,0 +1,9 @@
+{
+  "loggedInUsreUrl": "/dashboard/index",
+  "resetPasswordUrl": "/auth/requestPasswordResetCode",
+  "usernameFieldLabel": "Username",
+  "passwordFieldLabel": "Password",
+  "usernameHint": "Username",
+  "passwordHint": "Password",
+  "pageTitle": "Login"
+}
