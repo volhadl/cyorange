@@ -1,6 +1,0 @@
-export const loggedInUsreUrl = '/dashboard/index'
-export const resetPasswordUrl = '/auth/requestPasswordResetCode'
-export const usernameFieldName = 'Username'
-export const passwordFieldName = 'Password'
-export const usernameHint = 'Username'
-export const passwordHint = 'Password'

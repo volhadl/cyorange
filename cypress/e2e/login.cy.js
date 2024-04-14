@@ -1,37 +1,62 @@
 /// <reference types= "cypress" />
-import LoginPage from '../../pages/LoginPage'
-import * as loginData from '../../testData/loginData'
 
-describe('Verification of the login page', () => {
-    beforeEach(() => {
-        cy.visit('/')
-    })
+import LoginPage from "../../pages/LoginPage";
+import loginData from "../fixtures/loginData.json";
 
-    it('Verification of the page title', () => {
-        cy.get(LoginPage.pageTitle).should('have.text', 'Login')
-    })
+const baseUrl = Cypress.config().baseUrl;
 
-    it('Verification Username and Password fields', () => {
-        cy.get(LoginPage.usernameFieldName).should('contain',loginData.usernameFieldName)
-        cy.get(LoginPage.passwordFieldName).should('contain',loginData.passwordFieldName)
-        cy.get(LoginPage.usernameInputField).invoke('attr', 'placeholder').should('contain', loginData.usernameFieldName)
-        cy.get(LoginPage.passwordInputField).invoke('attr', 'placeholder').should('contain', loginData.passwordFieldName)
-    })
+describe("Verification of the login page", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
 
-    it('Verification of a login action', () => {
-        let username = []
-        cy.get('.orangehrm-demo-credentials > .oxd-text').each(($el) => {
-                username.push($el.text().split(': ')[1])
-            }).then(() => {
-                cy.get(LoginPage.usernameInputField).type(username[0])
-                cy.get(LoginPage.passwordInputField).type(username[1])
-            })
-        cy.get(LoginPage.submit).click()
-        cy.url().should('eq', Cypress.config().baseUrl + loginData.loggedInUsreUrl)
-    })
+  it("Verification of the page title", () => {
+    LoginPage.pageTitle.should("have.text", loginData.pageTitle);
+  });
 
-    it('Verification of a reset password action', () => {
-        cy.get('.orangehrm-login-forgot-header').click()
-        cy.url().should('eq', Cypress.config().baseUrl + loginData.resetPasswordUrl)
-    })
-})
+  it("Verification Username and Password fields", () => {
+    console.log(loginData);
+    console.log(loginData.usernameFieldLabel);
+
+    LoginPage.usernameFieldLabel.should(
+      "contain",
+      loginData.usernameFieldLabel
+    );
+
+    LoginPage.passwordFieldLabel.should(
+      "contain",
+      loginData.passwordFieldLabel
+    );
+
+    LoginPage.usernameInputField
+      .invoke("attr", "placeholder")
+      .should("contain", loginData.usernameFieldLabel);
+
+    LoginPage.passwordInputField
+      .invoke("attr", "placeholder")
+      .should("contain", loginData.passwordFieldLabel);
+  });
+
+  it("Verification of a login action", () => {
+    let credentials = [];
+
+    LoginPage.credentialData
+      .each(($el) => {
+        credentials.push($el.text().split(": ")[1]);
+      })
+      .then(() => {
+        LoginPage.usernameInputField.type(credentials[0]);
+        LoginPage.passwordInputField.type(credentials[1]);
+      });
+
+    LoginPage.submitButton.click();
+
+    cy.url().should("eq", baseUrl + loginData.loggedInUsreUrl);
+  });
+
+  it("Verification of a reset password action", () => {
+    LoginPage.resetPasswordButton.click();
+
+    cy.url().should("eq", baseUrl + loginData.resetPasswordUrl);
+  });
+});
