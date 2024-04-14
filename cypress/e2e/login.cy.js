@@ -56,7 +56,6 @@ describe("Verification of the login page", () => {
 
   it("Verification of a reset password action", () => {
     LoginPage.resetPasswordButton.click();
-
     cy.url().should("eq", baseUrl + loginData.resetPasswordUrl);
   });
 });
